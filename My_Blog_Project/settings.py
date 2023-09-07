@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'App_Blog',
     'App_Login',
     'crispy_forms',
+    'crispy_bootstrap4',
 
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,3 +139,7 @@ MEDIA_DIR = [
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = "/media/"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_URL = '/account/login'

@@ -7,7 +7,7 @@ class Blog(models.Model):
     blog_title = models.CharField(max_length=264, verbose_name="Put a Title")
     slug = models.SlugField(max_length=264, unique=True)
     blog_content = models.TextField(verbose_name="What is on your Mind!")
-    blog_image = models.ImageField(upload_to='blog_images', verbose_name="Imgae")
+    blog_image = models.ImageField(upload_to="blog_images", verbose_name="Image")
     publish_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)
 
@@ -27,4 +27,7 @@ class Comment(models.Model):
 class Likes(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="liked_blog")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="liker_blog")
+
+    def __str__(self):
+        return self.user + " likes " + self.blog
     

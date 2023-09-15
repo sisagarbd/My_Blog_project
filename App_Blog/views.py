@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, View, TemplateView, DeleteView 
 from App_Blog.models import Blog, Comment, Likes
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 import uuid
 
@@ -22,8 +23,14 @@ class CreateBlog(LoginRequiredMixin, CreateView):
         return HttpResponseRedirect(reverse('index'))
 
 
-
 class BlogList(ListView):
     context_object_name = 'blogs'
     model = Blog
     template_name = 'App_Blog/blog_list.html'
+
+
+@login_required
+def blog_details(request, slug):
+    blog = Blog.objects.get(slug=slug)
+
+    return render(request, 'App_Blog/blog_details.html', context={'blog': blog})

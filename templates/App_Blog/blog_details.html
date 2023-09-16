@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title_block %} {{blog.blog_title}} {% endblock %}
 {% block body_block %}
 
@@ -15,6 +16,34 @@
     <p>
         {{blog.blog_content|linebreaks}}
     </p>
+
+    <a href="">
+        <i class="fa fa-thumbs-o-up fa-2x"></i>
+    </a>
+    <a href="">
+        <i class="fa fa-thumbs-o-down fa-2x"></i>
+    </a>
+    <hr>
+    
+</div>
+
+<div class ="row">
+    <div class="col-sm-6">
+        <hr>
+        <h5>Comments:</h5>
+        {% for comment in blog.blog_comment.all %}
+        <p><a href="">@{{comment.user}}</a>  {{comment.comment}} <br> <h6> {{comment.comment_date}}</h6>  </p>
+        <hr>
+        {% endfor %}
+    </div>
+    <div class="con-sm-6">
+        <form method="POST">
+            {{ comment_form|crispy }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-sm" >Comment</button>
+        </form>
+    </div>
+
 </div>
  
 {% endblock %}
